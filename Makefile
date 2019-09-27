@@ -1,0 +1,45 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/09/02 16:45:56 by lbarthon          #+#    #+#              #
+#    Updated: 2019/09/26 13:46:30 by lbarthon         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+CC=@gcc
+#CFLAGS=-g -Wall -Werror -Wextra -I includes
+CFLAGS=-g  -I includes
+
+NAME=ft_ssl
+SRCS=./srcs/lib/ft_putstr.c \
+	 ./srcs/lib/ft_strcmp.c \
+	 ./srcs/lib/ft_strnew.c \
+	 ./srcs/lib/files.c \
+	 ./srcs/errors/usage.c \
+	 ./srcs/errors/commands.c \
+	 ./srcs/commands.c \
+	 ./srcs/flags.c \
+	 ./srcs/md5.c \
+	 ./srcs/sha256.c \
+	 ./srcs/main.c
+
+OBJS=$(SRCS:.c=.o)
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+
+fclean: clean
+	@rm -f $(NAME)
+
+clean:
+	@rm -rf $(OBJS)
+
+re: fclean all
+
+.PHONY: all fclean clean re

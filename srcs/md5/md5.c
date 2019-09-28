@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <stdio.h>
 
 void			exec_md5(char flags, int i, int ac, char **av)
 {
@@ -26,7 +27,7 @@ void			exec_md5(char flags, int i, int ac, char **av)
 	j = i;
 	if (!isatty(0) || ac == i)
 	{
-		ft_md5_stream(0, ret);
+		ft_md5_stream(0, ret, ft_has_flag(flags, 'p'));
 		ft_md5_display(ret, flags, NULL);
 	}
 	while (i < ac)
@@ -36,28 +37,30 @@ void			exec_md5(char flags, int i, int ac, char **av)
 			ft_md5_str((unsigned char *)av[i], ft_strlen(av[i]), ret);
 			ft_md5_display(ret, flags, av[i]);
 		}
-		else if ((fd = open(av[i], O_RDONLY)) != -1)
+		else if ((fd = open(av[i], O_RDONLY)) != -1 && read(fd, NULL, 0) != -1)
 		{
-			ft_md5_stream(fd, ret);
-			ft_md5_display(ret, flags, NULL);
+			ft_md5_stream(fd, ret, 0);
+			ft_md5_display(ret, flags, av[i]);
 		}
 		else
-			ft_not_found("md5", av[i]);
+			ft_not_found("md5", av[i], fd);
 		i++;
 	}
 }
 
-void			ft_md5_stream(int fd, char ret[33])
+void			ft_md5_stream(int fd, char ret[33], char need_print)
 {
 	t_md5_stream	stream;
-	char			buff[2048];
+	char			buff[2049];
 	int				r;
-	int				l;
 	int				offset;
 
 	ft_md5_stream_init(&stream);
 	while ((r = read(fd, buff, 2048)))
 	{
+		buff[r] = '\0';
+		if (need_print)
+			ft_putstr(buff);
 		offset = ft_md5_check_residual(&stream, buff, r);
 		while (r - offset >= 64)
 		{
@@ -113,7 +116,7 @@ void			ft_md5_stream_end(t_md5_stream *stream)
 	size_t	bits_len;
 
 	ft_bzero(stream->buffer + stream->buff_len, 64 - stream->buff_len);
-	stream->buffer[stream->buff_len] |= 1 << 7;
+	stream->buffer[(int)stream->buff_len] |= 1 << 7;
 	bits_len = (stream->total_len + stream->buff_len) * 8;
 	if (stream->buff_len > 56)
 	{

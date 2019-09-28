@@ -11,8 +11,8 @@
 # **************************************************************************** #
 
 CC=@gcc
-#CFLAGS=-g -Wall -Werror -Wextra -I includes
-CFLAGS=-g  -I includes
+CFLAGS=-g -Wall -Werror -Wextra -I includes
+#CFLAGS=-g  -I includes
 
 NAME=ft_ssl
 SRCS=./srcs/lib/ft_putstr.c \

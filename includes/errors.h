@@ -15,6 +15,6 @@
 
 void	ft_print_usage();
 void	ft_print_wrong_command(const char *cmd);
-void	ft_not_found(char *algo, char *path);
+void	ft_not_found(char *algo, char *path, int fd);
 
 #endif

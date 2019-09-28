@@ -6,7 +6,7 @@
 #    By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/02 16:45:56 by lbarthon          #+#    #+#              #
-#    Updated: 2019/09/26 13:46:30 by lbarthon         ###   ########.fr        #
+#    Updated: 2019/09/28 12:05:03 by lbarthon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SRCS=./srcs/lib/ft_putstr.c \
 	 ./srcs/errors/commands.c \
 	 ./srcs/commands.c \
 	 ./srcs/flags.c \
-	 ./srcs/md5.c \
+	 ./srcs/md5/md5.c \
+	 ./srcs/md5/md5_utils.c \
 	 ./srcs/sha256.c \
 	 ./srcs/main.c
 

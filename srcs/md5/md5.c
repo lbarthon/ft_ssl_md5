@@ -6,22 +6,16 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 10:40:55 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/09/28 11:19:16 by lbarthon         ###   ########.fr       */
+/*   Updated: 2019/09/28 14:37:29 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
+#include "ft_ssl.h"
 #include <stdlib.h>
 #include <stdio.h>
 
-char			*ft_md5(unsigned char *str, int len);
-char			*ft_get_ret(int *h);
-void			*ft_prepare_msg(unsigned char *str, int len);
-void			ft_main_loop(int *h, unsigned int *w);
-unsigned int	ft_get_f(unsigned int *t, int i);
-unsigned int	ft_get_g(int i);
-
-int				*g_k = (int[]) {
+static int		*g_k = (int[]) {
 	0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee,
 	0xf57c0faf, 0x4787c62a, 0xa8304613, 0xfd469501,
 	0x698098d8, 0x8b44f7af, 0xffff5bb1, 0x895cd7be,
@@ -38,7 +32,7 @@ int				*g_k = (int[]) {
 	0x655b59c3, 0x8f0ccc92, 0xffeff47d, 0x85845dd1,
 	0x6fa87e4f, 0xfe2ce6e0, 0xa3014314, 0x4e0811a1,
 	0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391};
-int				*g_r = (int[]) {
+static int		*g_r = (int[]) {
 	7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22,
 	5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20,
 	4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23,
@@ -47,18 +41,25 @@ int				*g_r = (int[]) {
 void			exec_md5(char flags, int i, int ac, char **av)
 {
 	char	*piped_content;
-	char	*ret;
+	char	ret[33];
 
 	(void)flags;
 	(void)av;
-	piped_content = ft_get_stdin(i == ac);
-	printf("Piped content:\n%s", piped_content);
-	ret = ft_md5((unsigned char *)piped_content, ft_strlen(piped_content));
-	printf("MD5: %s\n", ret);
-	free(ret);
+	piped_content = ft_get_stdin(i == ac || ft_has_flag(flags, 'p'));
+	if (piped_content != NULL)
+	{
+		ft_md5((unsigned char *)piped_content, ft_strlen(piped_content), ret);
+		ft_display_md5(flags, ret);
+	}
+	while (i < ac)
+	{
+		ft_md5((unsigned char *)av[i], ft_strlen(av[i]), ret);
+		ft_display_md5(flags, ret);
+		i++;
+	}
 }
 
-char			*ft_md5(unsigned char *str, int len)
+void			ft_md5(unsigned char *str, int len, char ret[33])
 {
 	unsigned char	*msg;
 	int				*r;
@@ -74,18 +75,15 @@ char			*ft_md5(unsigned char *str, int len)
 		ft_main_loop(h, (unsigned int *)(msg + offset));
 		offset += 512 / 8;
 	}
-	return (ft_get_ret(h));
+	ft_get_ret(h, ret);
 }
 
-char			*ft_get_ret(int *h)
+void			ft_get_ret(int *h, char ret[33])
 {
 	unsigned char	*p;
-	char			*ret;
 	int				i;
 	int				j;
 
-	if (!(ret = malloc(33)))
-		return (NULL);
 	i = -1;
 	while (++i < 4)
 	{
@@ -101,14 +99,13 @@ char			*ft_get_ret(int *h)
 	while (++i < 32)
 		ret[i] += ret[i] < 10 ? '0' : 'a' - 10;
 	ret[32] = '\0';
-	return (ret);
 }
 
 void			*ft_prepare_msg(unsigned char *str, int len)
 {
 	unsigned char	*msg;
 	int				new_len;
-	int				bits_len;
+	size_t			bits_len;
 
 	new_len = ((((len + 8) / 64) + 1) * 64) - 8;
 	msg = malloc(new_len + 64);
@@ -117,6 +114,7 @@ void			*ft_prepare_msg(unsigned char *str, int len)
 	msg[len] = 128;
 	bits_len = len * 8;
 	ft_memcpy(msg + new_len, &bits_len, 4);
+	ft_memcpy(msg + new_len - 4, (unsigned char *)&bits_len + 4, 4);
 	return (msg);
 }
 
@@ -140,7 +138,7 @@ void			ft_main_loop(int *h, unsigned int *w)
 		t[0] = t[3];
 		t[3] = t[2];
 		t[2] = t[1];
-		t[1] += (((f) << (g_r[i])) | ((f) >> (32 - (g_r[i]))));
+		t[1] += ROTATELEFT(f, g_r[i]);
 	}
 	h[0] += t[0];
 	h[1] += t[1];

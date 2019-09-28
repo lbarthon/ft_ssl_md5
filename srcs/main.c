@@ -6,14 +6,13 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 11:17:22 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/09/26 13:03:01 by lbarthon         ###   ########.fr       */
+/*   Updated: 2019/09/28 14:31:36 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
 #include "errors.h"
 #include "ft_ssl.h"
-
 #include <stdio.h>
 
 void	ft_process(short id, int ac, char **av)
@@ -23,10 +22,6 @@ void	ft_process(short id, int ac, char **av)
 	
 	i = 2;
 	flags = ft_get_flags(ac, av);
-	printf("Flag 0: %d\n", (flags & 1 << 0) != 0);
-	printf("Flag 1: %d\n", (flags & 1 << 1) != 0);
-	printf("Flag 2: %d\n", (flags & 1 << 2) != 0);
-	printf("Flag 3: %d\n", (flags & 1 << 3) != 0);
 	while (i < ac && av[i][0] == '-')
 		i++;
 	if (id == 1)

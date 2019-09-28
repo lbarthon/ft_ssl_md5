@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 12:22:15 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/09/24 10:32:23 by lbarthon         ###   ########.fr       */
+/*   Updated: 2019/09/28 14:26:31 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,16 @@ char	ft_get_flag_id(char flag)
 	if (flag == 's')
 		return (3);
 	return (-1);
+}
+
+char	ft_has_flag(char flags, char flag)
+{
+	int		flag_id;
+
+	flag_id = ft_get_flag_id(flag);
+	if (flag_id == -1)
+		return (0);
+	return ((flags & 1 << 0) != 0);
 }
 
 char	ft_get_flags(int ac, char **av)

@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 11:50:00 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/09/26 13:00:55 by lbarthon         ###   ########.fr       */
+/*   Updated: 2019/09/28 12:13:32 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 #include <unistd.h>
 #include <stdio.h>
 
+/*
+** This function call is needed in order to return null if it's not waiting
+** for an input in stdin.
+*/
+
 char	*ft_get_stdin(char force)
 {
-	/*
-	** This function call is needed in order to return null if it's not waiting
-	** for an input in stdin.
-	*/
 	if (!isatty(0) || force)
 		return (ft_read(0));
 	return (NULL);
@@ -45,7 +46,7 @@ char	*ft_read(const int fd)
 		ret = ft_strcat(ret, buff);
 		ret_len += r;
 		if (r < 1024 && buff[r - 1] == EOF)
-			break;
+			break ;
 	}
 	return (ret);
 }

@@ -25,6 +25,7 @@ SRCS=./srcs/lib/ft_putstr.c \
 	 ./srcs/flags.c \
 	 ./srcs/md5/md5.c \
 	 ./srcs/md5/md5_utils.c \
+	 ./srcs/md5/md5_display.c \
 	 ./srcs/sha256.c \
 	 ./srcs/main.c
 

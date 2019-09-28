@@ -14,7 +14,7 @@
 #include "lib.h"
 #include <stdlib.h>
 
-static int		*g_k = (int[]) {
+static int			*g_k = (int[]) {
 	0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee,
 	0xf57c0faf, 0x4787c62a, 0xa8304613, 0xfd469501,
 	0x698098d8, 0x8b44f7af, 0xffff5bb1, 0x895cd7be,
@@ -31,13 +31,13 @@ static int		*g_k = (int[]) {
 	0x655b59c3, 0x8f0ccc92, 0xffeff47d, 0x85845dd1,
 	0x6fa87e4f, 0xfe2ce6e0, 0xa3014314, 0x4e0811a1,
 	0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391};
-static int		*g_r = (int[]) {
+static int			*g_r = (int[]) {
 	7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22,
 	5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20,
 	4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23,
 	6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21};
 
-unsigned int	ft_get_f(unsigned int *t, int i)
+static unsigned int	ft_get_f(unsigned int *t, int i)
 {
 	if (i < 16)
 		return (t[1] & t[2]) | ((~t[1]) & t[3]);
@@ -48,7 +48,7 @@ unsigned int	ft_get_f(unsigned int *t, int i)
 	return (t[2] ^ (t[1] | (~t[3])));
 }
 
-unsigned int	ft_get_g(int i)
+static unsigned int	ft_get_g(int i)
 {
 	if (i < 16)
 		return (i);
@@ -59,25 +59,7 @@ unsigned int	ft_get_g(int i)
 	return ((7 * i) % 16);
 }
 
-void			*ft_prepare_msg(unsigned char *str, int len)
-{
-	unsigned char	*msg;
-	int				new_len;
-	size_t			bits_len;
-
-	new_len = ((((len + 8) / 64) + 1) * 64) - 8;
-	if ((msg = malloc(new_len + 64)))
-		return (NULL);
-	ft_bzero(msg, new_len + 64);
-	ft_memcpy(msg, str, len);
-	msg[len] = 128;
-	bits_len = len * 8;
-	ft_memcpy(msg + new_len, &bits_len, 4);
-	ft_memcpy(msg + new_len - 4, (unsigned char *)&bits_len + 4, 4);
-	return (msg);
-}
-
-void			ft_md5_words(unsigned int *h, unsigned int *w)
+void				ft_md5_words(unsigned int *h, unsigned int *w)
 {
 	unsigned int	t[4];
 	unsigned int	f;
@@ -103,4 +85,45 @@ void			ft_md5_words(unsigned int *h, unsigned int *w)
 	h[1] += t[1];
 	h[2] += t[2];
 	h[3] += t[3];
+}
+
+void			ft_get_ret(unsigned int *h, char ret[33])
+{
+	unsigned char	*p;
+	int				i;
+	int				j;
+
+	i = -1;
+	while (++i < 4)
+	{
+		p = (unsigned char *)&h[i];
+		j = -1;
+		while (++j < 4)
+		{
+			ret[i * 8 + j * 2] = p[j] / 16;
+			ret[i * 8 + j * 2 + 1] = p[j] % 16;
+		}
+	}
+	i = -1;
+	while (++i < 32)
+		ret[i] += ret[i] < 10 ? '0' : 'a' - 10;
+	ret[32] = '\0';
+}
+
+int		ft_md5_check_residual(t_md5_stream *stream, char buff[2048], int r)
+{
+	char	l;
+
+	if (stream->buff_len == 0)
+		return (0);
+	l = stream->buff_len + r >= 64 ? 64 - stream->buff_len : r;
+	ft_memcpy(stream->buffer + stream->buff_len, buff, l);
+	stream->buff_len += l;
+	if (stream->buff_len == 64)
+	{
+		ft_md5_words(stream->hash, (unsigned int*)stream->buffer);
+		stream->total_len += 64;
+		stream->buff_len = 0;
+	}
+	return (l);
 }

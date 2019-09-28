@@ -41,15 +41,14 @@ void			exec_md5(char flags, int i, int ac, char **av);
 void			exec_sha256(char flags, int i, int ac, char **av);
 
 void			ft_md5_str(unsigned char *str, int len, char ret[33]);
-void			ft_print_ret(unsigned int *h);
-void			ft_md5_stream(int fd);
+void			ft_md5_stream(int fd, char ret[33]);
+void			ft_md5_display(char ret[33], char flags, char *str);
+void			ft_get_ret(unsigned int *, char ret[33]);
 int				ft_md5_check_residual(t_md5_stream *stream, char buff[2048]
 		, int r);
 void			ft_md5_stream_init(t_md5_stream *stream);
 void			ft_md5_stream_end(t_md5_stream *stream);
 void			*ft_prepare_msg(unsigned char *str, int len);
 void			ft_md5_words(unsigned int *h, unsigned int *w);
-unsigned int	ft_get_f(unsigned int *t, int i);
-unsigned int	ft_get_g(int i);
 
 #endif

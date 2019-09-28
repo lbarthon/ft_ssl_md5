@@ -41,7 +41,7 @@ char	ft_has_flag(char flags, char flag)
 	flag_id = ft_get_flag_id(flag);
 	if (flag_id == -1)
 		return (0);
-	return ((flags & 1 << 0) != 0);
+	return ((flags & 1 << flag_id) != 0);
 }
 
 char	ft_get_flags(int ac, char **av)

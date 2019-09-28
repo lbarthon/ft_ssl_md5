@@ -16,3 +16,12 @@ void	ft_print_usage()
 {
 	ft_putendl_fd("usage: ft_ssl command [command opts] [command args]", 2);
 }
+
+void	ft_not_found(char *algo, char *path)
+{
+	ft_putstr_fd("ft_ssl: ", 2);
+	ft_putstr_fd(algo, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(path, 2);
+	ft_putendl_fd(": No such file or directory", 2);
+}

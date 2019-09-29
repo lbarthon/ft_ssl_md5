@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 11:17:22 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/09/29 12:40:52 by lbarthon         ###   ########.fr       */
+/*   Updated: 2019/09/29 13:10:20 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_process(short id, char **av)
 	if (id == 1)
 		md5_init(&hash);
 	else if (id == 2)
-		md5_init(&hash);
+		sha256_init(&hash);
 	hash_start(&hash, av);
 }
 

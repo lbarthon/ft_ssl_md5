@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 11:24:28 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/09/29 11:34:39 by lbarthon         ###   ########.fr       */
+/*   Updated: 2019/09/29 13:21:47 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,8 @@ char	*ft_read(const int fd);
 void	*ft_realloc(void *ptr, int size, int newsize);
 char	*ft_strcat(char *dest, const char *src);
 
+/*
+** Includes for file ft_memrev.c
+*/
+void	ft_memrev(void *ptr, int size);
 #endif

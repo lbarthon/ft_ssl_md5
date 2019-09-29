@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sha256.c                                           :+:      :+:    :+:   */
+/*   ft_memrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/24 10:42:07 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/09/24 11:04:04 by lbarthon         ###   ########.fr       */
+/*   Created: 2019/09/29 13:20:43 by lbarthon          #+#    #+#             */
+/*   Updated: 2019/09/29 13:44:05 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	exec_sha256(char flags, int i, int ac, char **av)
+void	ft_memrev(void *ptr, int size)
 {
-	(void)flags;
-	(void)i;
-	(void)ac;
-	(void)av;
+	char	*str;
+	char	tmp;
+	int		i;
+
+	str = (char *)ptr;
+	i = 0;
+	while (i < size / 2)
+	{
+		tmp = str[i];
+		str[i] = str[size - i - 1];
+		str[size - i - 1] = tmp;
+		i++;
+	}
 }

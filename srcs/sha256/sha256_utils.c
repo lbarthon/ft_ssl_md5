@@ -14,6 +14,7 @@
 #include "ft_ssl.h"
 #include "sha256.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 static int			*g_k = (int[]) {
 	0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
@@ -33,13 +34,16 @@ static int			*g_k = (int[]) {
 	0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208,
 	0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2};
 
-static void			ft_sha256_rev(unsigned int *w)
+static void			ft_sha256_rev(unsigned int w[64], unsigned int *buff)
 {
-	int				i;
+	int	i;
 
 	i = 0;
 	while (i < 16)
+	{
+		w[i] = buff[i];
 		ft_memrev(&w[i++], 4);
+	}
 	while (i < 64)
 	{
 		w[i] = SHA2_HASH_SSIG1(w[i - 2]) + w[i - 7]
@@ -48,14 +52,15 @@ static void			ft_sha256_rev(unsigned int *w)
 	}
 }
 
-void				ft_sha256_words(unsigned int *h, unsigned int *w)
+void				ft_sha256_words(unsigned int *h, unsigned int *buff)
 {
+	unsigned int	w[64];
 	unsigned int	t[8];
 	unsigned int	x;
 	unsigned int	y;
 	int				i;
 
-	ft_sha256_rev(w);
+	ft_sha256_rev(w, buff);
 	i = -1;
 	while (++i < 8)
 		t[i] = h[i];

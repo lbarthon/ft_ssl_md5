@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 12:58:49 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/09/29 14:12:20 by lbarthon         ###   ########.fr       */
+/*   Updated: 2019/09/29 16:18:23 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int			*g_k = (int[]) {
 
 static void			ft_sha256_rev(unsigned int *w)
 {
-	int	i;
+	int				i;
 
 	i = 0;
 	while (i < 16)

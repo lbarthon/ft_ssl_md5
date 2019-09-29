@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 11:19:03 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/09/29 12:52:11 by lbarthon         ###   ########.fr       */
+/*   Updated: 2019/09/29 15:35:53 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void				ft_md5_ret(unsigned int *h, char ret[33])
 	ret[32] = '\0';
 }
 
-int					ft_md5_check_residual(t_md5_stream *stream, char buff[2048]
+int					ft_md5_check_residual(t_md5_stream *stream, char buff[2049]
 		, int r)
 {
 	char	l;

@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 10:40:55 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/09/29 12:51:55 by lbarthon         ###   ########.fr       */
+/*   Updated: 2019/09/29 16:28:25 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void			ft_md5_stream_end(t_md5_stream *stream)
 	ft_bzero(stream->buffer + stream->buff_len, 64 - stream->buff_len);
 	stream->buffer[(int)stream->buff_len] |= 1 << 7;
 	bits_len = (stream->total_len + stream->buff_len) * 8;
-	if (stream->buff_len > 56)
+	if (stream->buff_len >= 56)
 	{
 		ft_md5_words(stream->hash, (unsigned int*)stream->buffer);
 		stream->buff_len = 0;

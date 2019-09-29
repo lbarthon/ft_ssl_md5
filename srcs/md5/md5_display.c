@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 11:03:27 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/09/29 12:37:55 by lbarthon         ###   ########.fr       */
+/*   Updated: 2019/09/29 15:24:48 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void			ft_md5_display(char ret[33], char *str, char flags, char quotes)
 	}
 	else if (str)
 	{
-		ft_putstr("MD5(");
+		ft_putstr("MD5 (");
 		if (quotes)
 			ft_putstr("\"");
 		ft_putstr(str);

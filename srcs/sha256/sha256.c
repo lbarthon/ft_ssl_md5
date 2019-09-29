@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 10:42:07 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/09/29 14:12:20 by lbarthon         ###   ########.fr       */
+/*   Updated: 2019/09/29 16:28:29 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 void			sha256_init(t_hash *hash)
 {
 	ft_bzero(hash->name, 10);
-	ft_memcpy(hash->name, "sha256", 3);
+	ft_memcpy(hash->name, "sha256", 6);
 	hash->exec_str = &ft_sha256_str;
 	hash->exec_stream = &ft_sha256_stream;
 	hash->display = &ft_sha256_display;
@@ -101,11 +101,11 @@ void			ft_sha256_stream_end(t_sha256_stream *stream)
 	ft_bzero(stream->buffer + stream->buff_len, 64 - stream->buff_len);
 	stream->buffer[(int)stream->buff_len] |= 1 << 7;
 	bits_len = (stream->total_len + stream->buff_len) * 8;
-	if (stream->buff_len > 56)
+	if (stream->buff_len >= 56)
 	{
 		ft_sha256_words(stream->hash, (unsigned int*)stream->buffer);
 		stream->buff_len = 0;
-		ft_bzero(stream->buffer, 256);
+		ft_bzero(stream->buffer, 64);
 	}
 	ft_memrev(&bits_len, 8);
 	ft_memcpy(stream->buffer + 56, &bits_len, 8);

@@ -6,11 +6,12 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 12:22:15 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/09/28 14:26:31 by lbarthon         ###   ########.fr       */
+/*   Updated: 2019/09/29 12:21:58 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
+#include "errors.h"
 #include <stdlib.h>
 
 /*
@@ -18,7 +19,6 @@
 **  -p => 0
 **  -q => 1
 **  -r => 2
-**  -s => 3
 */
 
 char	ft_get_flag_id(char flag)
@@ -29,8 +29,6 @@ char	ft_get_flag_id(char flag)
 		return (1);
 	if (flag == 'r')
 		return (2);
-	if (flag == 's')
-		return (3);
 	return (-1);
 }
 
@@ -44,31 +42,20 @@ char	ft_has_flag(char flags, char flag)
 	return ((flags & 1 << flag_id) != 0);
 }
 
-char	ft_get_flags(int ac, char **av)
+int		ft_get_flags(char *str, char *curr)
 {
-	char	ret;
-	int		i;
 	int		f;
-	int		j;
+	int		i;
 	int		len;
 
-	ret = 0;
-	i = 2;
-	if (ac < i)
-		return (ret);
-	while (i < ac)
+	len = ft_strlen(str);
+	i = 0;
+	while (++i < len)
 	{
-		if (av[i][0] != '-')
-			return (ret);
-		len = ft_strlen(av[i]);
-		j = 0;
-		while (++j < len)
-		{
-			f = ft_get_flag_id(av[i][j]);
-			if (f != -1)
-				ret |= 1 << f;
-		}
-		i++;
+		if ((f = ft_get_flag_id(str[i])) != -1)
+			(*curr) |= 1 << f;
+		else
+			return (i);
 	}
-	return (ret);
+	return (i);
 }

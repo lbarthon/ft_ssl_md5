@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 10:40:55 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/09/28 18:02:17 by lbarthon         ###   ########.fr       */
+/*   Updated: 2019/09/29 12:48:01 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,34 +18,15 @@
 #include <unistd.h>
 #include <stdio.h>
 
-void			exec_md5(char flags, int i, int ac, char **av)
+void			md5_init(t_hash *hash)
 {
-	char	ret[33];
-	int		fd;
-	int		j;
-
-	j = i;
-	if (!isatty(0) || ac == i)
-	{
-		ft_md5_stream(0, ret, ft_has_flag(flags, 'p'));
-		ft_md5_display(ret, flags, NULL);
-	}
-	while (i < ac)
-	{
-		if (i == j && ft_has_flag(flags, 's'))
-		{
-			ft_md5_str((unsigned char *)av[i], ft_strlen(av[i]), ret);
-			ft_md5_display(ret, flags, av[i]);
-		}
-		else if ((fd = open(av[i], O_RDONLY)) != -1 && read(fd, NULL, 0) != -1)
-		{
-			ft_md5_stream(fd, ret, 0);
-			ft_md5_display(ret, flags, av[i]);
-		}
-		else
-			ft_not_found("md5", av[i], fd);
-		i++;
-	}
+	ft_bzero(hash->name, 10);
+	ft_memcpy(hash->name, "md5", 3);
+	hash->exec_str = &ft_md5_str;
+	hash->exec_stream = &ft_md5_stream;
+	hash->display = &ft_md5_display;
+	hash->used = 0;
+	hash->error = 0;
 }
 
 void			ft_md5_stream(int fd, char ret[33], char need_print)
@@ -56,7 +37,7 @@ void			ft_md5_stream(int fd, char ret[33], char need_print)
 	int				offset;
 
 	ft_md5_stream_init(&stream);
-	while ((r = read(fd, buff, 2048)))
+	while ((r = read(fd, buff, 2048)) > 0)
 	{
 		buff[r] = '\0';
 		if (need_print)
@@ -64,15 +45,13 @@ void			ft_md5_stream(int fd, char ret[33], char need_print)
 		offset = ft_md5_check_residual(&stream, buff, r);
 		while (r - offset >= 64)
 		{
-			ft_md5_words(stream.hash, (unsigned int *)(buff + offset)); 
+			ft_md5_words(stream.hash, (unsigned int *)(buff + offset));
 			stream.total_len += 64;
 			offset += 64;
 		}
 		if (r - offset != 0)
-		{
-			ft_memcpy(stream.buffer, buff + offset, r - offset);
-			stream.buff_len = r - offset;
-		}
+			ft_memcpy(stream.buffer, buff + offset
+					, (stream.buff_len = r - offset));
 	}
 	ft_md5_stream_end(&stream);
 	ft_get_ret(stream.hash, ret);
@@ -87,7 +66,7 @@ void			ft_md5_str(unsigned char *str, int len, char ret[33])
 	offset = 0;
 	while (len - offset >= 64)
 	{
-		ft_md5_words(stream.hash, (unsigned int *)(str + offset)); 
+		ft_md5_words(stream.hash, (unsigned int *)(str + offset));
 		stream.total_len += 64;
 		offset += 64;
 	}

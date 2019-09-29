@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 11:24:28 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/09/26 13:43:28 by lbarthon         ###   ########.fr       */
+/*   Updated: 2019/09/29 11:34:39 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	ft_putendl_fd(char const *str, int fd);
 ** Includes for file ft_strcmp.c
 */
 int		ft_strcmp(const char *s1, const char *s2);
+int		ft_startswith(const char *str, const char *start);
+char	*ft_strchr(const char *str, int c);
 
 /*
 ** Includes for file ft_strnew.c

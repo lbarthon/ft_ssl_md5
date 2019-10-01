@@ -26,6 +26,7 @@ void			sha256_init(t_hash *hash)
 	hash->exec_stream = &ft_sha256_stream;
 	hash->display = &ft_sha256_display;
 	hash->used = 0;
+	hash->stdin_used = 0;
 	hash->error = 0;
 }
 

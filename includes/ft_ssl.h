@@ -38,6 +38,7 @@ typedef struct	s_hash {
 	void	(*exec_str)(unsigned char *, int, char *);
 	void	(*display)(char *, char *, char, char);
 	char	used;
+	char	stdin_used;
 	char	error;
 }				t_hash;
 

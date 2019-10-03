@@ -26,6 +26,7 @@ void			sha256_init(t_hash *hash)
 	hash->exec_stream = &ft_sha256_stream;
 	hash->display = &ft_sha256_display;
 	hash->used = 0;
+	hash->stdin_used = 0;
 	hash->error = 0;
 }
 
@@ -91,7 +92,7 @@ void			ft_sha256_stream_init(t_sha256_stream *stream)
 	stream->hash[7] = 0x5be0cd19;
 	stream->buff_len = 0;
 	stream->total_len = 0;
-	ft_bzero(stream->buffer, 256);
+	ft_bzero(stream->buffer, 64);
 }
 
 void			ft_sha256_stream_end(t_sha256_stream *stream)
@@ -99,7 +100,7 @@ void			ft_sha256_stream_end(t_sha256_stream *stream)
 	size_t	bits_len;
 
 	ft_bzero(stream->buffer + stream->buff_len, 64 - stream->buff_len);
-	stream->buffer[(int)stream->buff_len] |= 1 << 7;
+	stream->buffer[(int)stream->buff_len] = 1 << 7;
 	bits_len = (stream->total_len + stream->buff_len) * 8;
 	if (stream->buff_len >= 56)
 	{

@@ -24,6 +24,7 @@ void			md5_init(t_hash *hash)
 	hash->exec_stream = &ft_md5_stream;
 	hash->display = &ft_md5_display;
 	hash->used = 0;
+	hash->stdin_used = 0;
 	hash->error = 0;
 }
 

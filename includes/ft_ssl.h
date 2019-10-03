@@ -26,7 +26,7 @@ typedef struct	s_md5_stream {
 }				t_md5_stream;
 
 typedef struct	s_sha256_stream {
-	unsigned char	buffer[256];
+	unsigned char	buffer[64];
 	char			buff_len;
 	size_t			total_len;
 	unsigned int	hash[8];
@@ -38,6 +38,7 @@ typedef struct	s_hash {
 	void	(*exec_str)(unsigned char *, int, char *);
 	void	(*display)(char *, char *, char, char);
 	char	used;
+	char	stdin_used;
 	char	error;
 }				t_hash;
 

@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 11:32:17 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/09/29 12:40:36 by lbarthon         ###   ########.fr       */
+/*   Updated: 2019/10/03 11:24:43 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 void	ft_print_usage(void)
 {
-	ft_putendl_fd("usage: ft_ssl command [command opts] [command args]", 2);
+	ft_putendl_fd("usage: ft_ssl command [-pqr] [-s string] [file ...]", 2);
 }
 
 void	ft_not_found(char *algo, char *path, int fd)

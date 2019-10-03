@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 12:58:49 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/09/29 16:40:10 by lbarthon         ###   ########.fr       */
+/*   Updated: 2019/10/03 10:12:36 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ static int			*g_k = (int[]) {
 	0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208,
 	0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2};
 
-static void			ft_sha256_rev(unsigned int w[64], unsigned int *buff)
+static void			ft_sha256_prep(unsigned int w[64], unsigned int *buff
+		, unsigned int *h, unsigned int t[8])
 {
 	int	i;
 
@@ -50,6 +51,9 @@ static void			ft_sha256_rev(unsigned int w[64], unsigned int *buff)
 			+ SHA2_HASH_SSIG0(w[i - 15]) + w[i - 16];
 		i++;
 	}
+	i = -1;
+	while (++i < 8)
+		t[i] = h[i];
 }
 
 void				ft_sha256_words(unsigned int *h, unsigned int *buff)
@@ -60,10 +64,7 @@ void				ft_sha256_words(unsigned int *h, unsigned int *buff)
 	unsigned int	y;
 	int				i;
 
-	ft_sha256_rev(w, buff);
-	i = -1;
-	while (++i < 8)
-		t[i] = h[i];
+	ft_sha256_prep(w, buff, h, t);
 	i = -1;
 	while (++i < 64)
 	{

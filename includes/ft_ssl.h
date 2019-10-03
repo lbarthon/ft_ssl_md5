@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 12:14:34 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/09/29 13:37:36 by lbarthon         ###   ########.fr       */
+/*   Updated: 2019/10/03 10:10:19 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ void			ft_sha256_str(unsigned char *str, int len, char ret[65]);
 void			ft_sha256_stream(int fd, char ret[65], char need_print);
 void			ft_sha256_display(char ret[65], char *str, char flags, char q);
 void			ft_sha256_ret(unsigned int *i, char ret[65]);
-int				ft_sha256_check_residual(t_sha256_stream *stream, char buff[2048]
-		, int r);
+int				ft_sha256_check_residual(t_sha256_stream *stream
+		, char buff[2048], int r);
 void			ft_sha256_stream_init(t_sha256_stream *stream);
 void			ft_sha256_stream_end(t_sha256_stream *stream);
 void			ft_sha256_words(unsigned int *h, unsigned int *w);

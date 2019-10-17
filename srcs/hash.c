@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 11:43:13 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/10/17 17:46:34 by lbarthon         ###   ########.fr       */
+/*   Updated: 2019/10/17 18:53:21 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	hash_start(t_hash *hash, char **av)
 
 	i = 1;
 	flags = 0;
-	while (av[++i] && !hash->error)
+	while (av[++i])
 		hash_main(hash, av, &flags, &i);
 	if (!hash->used && !hash->error)
 		hash_stdin(hash, flags, 1);

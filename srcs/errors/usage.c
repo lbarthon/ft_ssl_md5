@@ -6,53 +6,39 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 11:32:17 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/10/17 17:46:26 by lbarthon         ###   ########.fr       */
+/*   Updated: 2019/10/17 18:53:42 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_ssl.h"
-#include <unistd.h>
+#include "printf.h"
 
 void	ft_print_usage(void)
 {
-	ft_putendl_fd("usage: ft_ssl command [-pqr] [-s string] [file ...]", 2);
+	ft_dprintf(2, "usage: ft_ssl command [-pqr] [-s string] [file ...]\n");
 }
 
 void	ft_not_found(char *algo, char *path, int fd)
 {
 	if (fd == -1)
-	{
-		ft_putstr_fd("ft_ssl: ", 2);
-		ft_putstr_fd(algo, 2);
-		ft_putstr_fd(": ", 2);
-		ft_putstr_fd(path, 2);
-		ft_putendl_fd(": No such file or directory", 2);
-	}
+		ft_dprintf(2, "ft_ssl: %s: %s: No such file or directory"
+				"\n", algo, path);
 	else
-	{
-		ft_putstr_fd("ft_ssl: ", 2);
-		ft_putstr_fd(algo, 2);
-		ft_putstr_fd(": ", 2);
-		ft_putstr_fd(path, 2);
-		ft_putendl_fd(": Not handling directories", 2);
-	}
+		ft_dprintf(2, "ft_ssl: %s: %s: Not handling directories"
+				"\n", algo, path);
 }
 
 void	ft_wrong_flag(t_hash *hash, char flag)
 {
-	ft_putstr_fd("ft_ssl: illegal option -- ", 2);
-	write(2, &flag, 1);
-	ft_putendl_fd("", 2);
+	ft_dprintf(2, "ft_ssl: illegal option -- %c\n", flag);
 	ft_print_usage();
 	hash->error = 1;
 }
 
 void	ft_err_noarg(t_hash *hash, char flag)
 {
-	ft_putstr_fd("ft_ssl: option requires an argument -- ", 2);
-	write(2, &flag, 1);
-	ft_putendl_fd("", 2);
+	ft_dprintf(2, "ft_ssl: option requires an argument -- %c\n", flag);
 	ft_print_usage();
 	hash->error = 1;
 }

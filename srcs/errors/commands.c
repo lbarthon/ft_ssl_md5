@@ -6,11 +6,11 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 11:40:55 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/09/24 10:25:24 by lbarthon         ###   ########.fr       */
+/*   Updated: 2019/10/17 17:46:20 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib.h"
+#include "libft.h"
 
 void	ft_print_wrong_command(const char *cmd)
 {

@@ -6,21 +6,16 @@
 #    By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/02 16:45:56 by lbarthon          #+#    #+#              #
-#    Updated: 2019/09/29 13:44:01 by lbarthon         ###   ########.fr        #
+#    Updated: 2019/10/17 17:41:02 by lbarthon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC=@gcc
-CFLAGS=-g -Wall -Werror -Wextra -I includes
+CC=gcc
+CFLAGS=-g -Wall -Werror -Wextra -I includes -I libft/includes
 #CFLAGS=-g  -I includes
 
 NAME=ft_ssl
-SRCS=./srcs/lib/ft_putstr.c \
-	 ./srcs/lib/ft_strcmp.c \
-	 ./srcs/lib/ft_strnew.c \
-	 ./srcs/lib/ft_memrev.c \
-	 ./srcs/lib/files.c \
-	 ./srcs/errors/usage.c \
+SRCS=./srcs/errors/usage.c \
 	 ./srcs/errors/commands.c \
 	 ./srcs/commands.c \
 	 ./srcs/flags.c \
@@ -34,17 +29,24 @@ SRCS=./srcs/lib/ft_putstr.c \
 	 ./srcs/main.c
 
 OBJS=$(SRCS:.c=.o)
+LIB_DIR=libft
+LIB_NAME=$(LIB_DIR)/libft.a
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+$(NAME): $(LIB_NAME) $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $^
+
+$(LIB_NAME):
+	make -C $(LIB_DIR)
 
 fclean: clean
-	@rm -f $(NAME)
+	rm -f $(NAME)
+	make -C $(LIB_DIR) fclean
 
 clean:
-	@rm -rf $(OBJS)
+	rm -rf $(OBJS)
+	make -C $(LIB_DIR) clean
 
 re: fclean all
 

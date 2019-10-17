@@ -6,11 +6,11 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 11:43:13 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/09/29 12:43:34 by lbarthon         ###   ########.fr       */
+/*   Updated: 2019/10/17 17:46:34 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib.h"
+#include "libft.h"
 #include "ft_ssl.h"
 #include "errors.h"
 #include <unistd.h>

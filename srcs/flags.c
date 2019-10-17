@@ -6,11 +6,11 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 12:22:15 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/09/29 12:21:58 by lbarthon         ###   ########.fr       */
+/*   Updated: 2019/10/17 17:46:29 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib.h"
+#include "libft.h"
 #include "errors.h"
 #include <stdlib.h>
 

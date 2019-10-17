@@ -6,11 +6,11 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 13:08:59 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/09/29 15:24:41 by lbarthon         ###   ########.fr       */
+/*   Updated: 2019/10/17 17:47:08 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib.h"
+#include "libft.h"
 #include "ft_ssl.h"
 
 void			ft_sha256_display(char ret[65], char *str

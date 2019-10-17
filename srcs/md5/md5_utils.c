@@ -6,12 +6,12 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 11:19:03 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/09/29 15:35:53 by lbarthon         ###   ########.fr       */
+/*   Updated: 2019/10/17 17:46:58 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
-#include "lib.h"
+#include "libft.h"
 #include <stdlib.h>
 
 static int			*g_k = (int[]) {

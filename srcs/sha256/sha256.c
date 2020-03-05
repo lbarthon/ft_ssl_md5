@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 10:42:07 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/10/17 17:47:02 by lbarthon         ###   ########.fr       */
+/*   Updated: 2020/03/05 16:06:41 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 void			sha256_init(t_hash *hash)
 {
 	ft_bzero(hash->name, 10);
-	ft_memcpy(hash->name, "sha256", 6);
+	ft_strcpy(hash->name, "sha256");
+	ft_strcpy(hash->display_name, "SHA256");
 	hash->exec_str = &ft_sha256_str;
 	hash->exec_stream = &ft_sha256_stream;
-	hash->display = &ft_sha256_display;
 	hash->used = 0;
 	hash->stdin_used = 0;
 	hash->error = 0;

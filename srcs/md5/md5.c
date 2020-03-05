@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 10:40:55 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/10/17 17:46:46 by lbarthon         ###   ########.fr       */
+/*   Updated: 2020/03/05 16:06:15 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 void			md5_init(t_hash *hash)
 {
 	ft_bzero(hash->name, 10);
-	ft_memcpy(hash->name, "md5", 3);
+	ft_strcpy(hash->name, "md5");
+	ft_strcpy(hash->display_name, "MD5");
 	hash->exec_str = &ft_md5_str;
 	hash->exec_stream = &ft_md5_stream;
-	hash->display = &ft_md5_display;
 	hash->used = 0;
 	hash->stdin_used = 0;
 	hash->error = 0;

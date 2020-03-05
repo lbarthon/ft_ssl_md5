@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 12:14:34 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/10/03 10:10:19 by lbarthon         ###   ########.fr       */
+/*   Updated: 2020/03/05 16:40:31 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,25 @@ typedef struct	s_sha256_stream {
 
 typedef struct	s_hash {
 	char	name[10];
+	char	display_name[10];
 	void	(*exec_stream)(int, char *, char);
 	void	(*exec_str)(unsigned char *, int, char *);
-	void	(*display)(char *, char *, char, char);
 	char	used;
 	char	stdin_used;
 	char	error;
 }				t_hash;
+
+typedef enum	e_type {
+	STANDARD,
+	DIGEST,
+	CIPHER
+}				t_type;
+
+typedef struct	s_command {
+	char	*name;
+	t_type	type;
+	void	(*init)(t_hash *hash);
+}				t_command;
 
 short			ft_get_command_id(char *cmd);
 int				ft_get_flags(char *str, char *curr);
@@ -52,6 +64,10 @@ void			flag_err(t_hash *hash, char c);
 void			hash_str(t_hash *hash, char *str, char flags);
 void			hash_stream(t_hash *hash, char *str, char flags);
 void			hash_stdin(t_hash *hash, char flags, char force);
+void			hash_display_file(t_hash *hash, char *ret, char *str
+		, char flags);
+void			hash_display_str(t_hash *hash, char *ret, char *str
+		, char flags);
 
 /*
 ** All md5 functions
@@ -59,7 +75,6 @@ void			hash_stdin(t_hash *hash, char flags, char force);
 void			md5_init(t_hash *hash);
 void			ft_md5_str(unsigned char *str, int len, char ret[33]);
 void			ft_md5_stream(int fd, char ret[33], char need_print);
-void			ft_md5_display(char ret[33], char *str, char flags, char q);
 void			ft_md5_ret(unsigned int *i, char ret[33]);
 int				ft_md5_check_residual(t_md5_stream *stream, char buff[2048]
 		, int r);
@@ -73,7 +88,6 @@ void			ft_md5_words(unsigned int *h, unsigned int *w);
 void			sha256_init(t_hash *hash);
 void			ft_sha256_str(unsigned char *str, int len, char ret[65]);
 void			ft_sha256_stream(int fd, char ret[65], char need_print);
-void			ft_sha256_display(char ret[65], char *str, char flags, char q);
 void			ft_sha256_ret(unsigned int *i, char ret[65]);
 int				ft_sha256_check_residual(t_sha256_stream *stream
 		, char buff[2048], int r);

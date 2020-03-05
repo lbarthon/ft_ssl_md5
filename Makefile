@@ -6,7 +6,7 @@
 #    By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/02 16:45:56 by lbarthon          #+#    #+#              #
-#    Updated: 2019/10/17 17:41:02 by lbarthon         ###   ########.fr        #
+#    Updated: 2020/03/05 14:21:56 by lbarthon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,15 +17,13 @@ CFLAGS=-g -Wall -Werror -Wextra -I includes -I libft/includes
 NAME=ft_ssl
 SRCS=./srcs/errors/usage.c \
 	 ./srcs/errors/commands.c \
-	 ./srcs/commands.c \
 	 ./srcs/flags.c \
 	 ./srcs/hash.c \
+	 ./srcs/display.c \
 	 ./srcs/md5/md5.c \
 	 ./srcs/md5/md5_utils.c \
-	 ./srcs/md5/md5_display.c \
 	 ./srcs/sha256/sha256.c \
 	 ./srcs/sha256/sha256_utils.c \
-	 ./srcs/sha256/sha256_display.c \
 	 ./srcs/main.c
 
 OBJS=$(SRCS:.c=.o)

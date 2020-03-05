@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 11:43:13 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/10/17 18:53:21 by lbarthon         ###   ########.fr       */
+/*   Updated: 2020/03/05 16:05:20 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	hash_main(t_hash *hash, char **av, char *flags, int *i)
 	}
 	else
 		hash_stream(hash, av[*i], *flags);
-	if (!hash->stdin_used && ft_has_flag(*flags, 'p'))
+	if (ft_has_flag(*flags, 'p'))
 		hash_stdin(hash, *flags, 1);
 }
 
@@ -59,10 +59,8 @@ void	hash_str(t_hash *hash, char *str, char flags)
 {
 	char	ret[65];
 
-	if (!hash->used)
-		hash_stdin(hash, flags, 0);
 	hash->exec_str((unsigned char *)str, ft_strlen(str), ret);
-	hash->display(ret, str, flags, 1);
+	hash_display_str(hash, ret, str, flags);
 	hash->used = 1;
 }
 
@@ -82,7 +80,7 @@ void	hash_stream(t_hash *hash, char *str, char flags)
 	else
 	{
 		hash->exec_stream(fd, ret, 0);
-		hash->display(ret, str, flags, 0);
+		hash_display_file(hash, ret, str, flags);
 		close(fd);
 	}
 	hash->used = 1;
@@ -92,11 +90,13 @@ void	hash_stdin(t_hash *hash, char flags, char force)
 {
 	char	ret[65];
 
-	if (!isatty(0) || force)
-	{
+	if (isatty(0) && !hash->stdin_used)
 		hash->exec_stream(0, ret, ft_has_flag(flags, 'p'));
-		hash->display(ret, NULL, flags, 0);
-		hash->stdin_used = 1;
-		hash->used = 1;
-	}
+	else if (!force)
+		return ;
+	else
+		hash->exec_str((unsigned char *)"", 0, ret);
+	hash_display_file(hash, ret, NULL, flags);
+	hash->stdin_used = 1;
+	hash->used = 1;
 }

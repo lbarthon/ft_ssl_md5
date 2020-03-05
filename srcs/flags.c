@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 12:22:15 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/10/17 17:46:29 by lbarthon         ###   ########.fr       */
+/*   Updated: 2020/03/05 16:01:22 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int		ft_get_flags(char *str, char *curr)
 
 	len = ft_strlen(str);
 	i = 0;
+	(*curr) &= ~(1 << ft_get_flag_id('p'));
 	while (++i < len)
 	{
 		if ((f = ft_get_flag_id(str[i])) != -1)

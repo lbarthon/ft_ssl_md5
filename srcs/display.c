@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 14:18:38 by lbarthon          #+#    #+#             */
-/*   Updated: 2020/03/05 16:04:16 by lbarthon         ###   ########.fr       */
+/*   Updated: 2020/03/05 17:45:56 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 void	hash_display_str(t_hash *hash, char *ret, char *str, char flags)
 {
-	if (ft_has_flag(flags, 'q'))
+	if (has_flag(flags, 'q'))
 		ft_printf("%s\n", ret);
-	else if (ft_has_flag(flags, 'r'))
+	else if (has_flag(flags, 'r'))
 		ft_printf("%s %s\n", ret, str);
 	else if (str)
 		ft_printf("%s (\"%s\") = %s\n", hash->display_name, str, ret);
@@ -28,9 +28,9 @@ void	hash_display_str(t_hash *hash, char *ret, char *str, char flags)
 
 void	hash_display_file(t_hash *hash, char *ret, char *str, char flags)
 {
-	if (ft_has_flag(flags, 'q'))
+	if (has_flag(flags, 'q'))
 		ft_printf("%s\n", ret);
-	else if (ft_has_flag(flags, 'r'))
+	else if (has_flag(flags, 'r'))
 		ft_printf("%s %s\n", ret, str);
 	else if (str)
 		ft_printf("%s (%s) = %s\n", hash->display_name, str, ret);

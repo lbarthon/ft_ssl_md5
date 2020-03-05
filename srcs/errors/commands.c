@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 11:40:55 by lbarthon          #+#    #+#             */
-/*   Updated: 2020/03/05 13:52:03 by lbarthon         ###   ########.fr       */
+/*   Updated: 2020/03/05 17:44:00 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void		print_type(t_type type)
 	ft_dprintf(2, "\n");
 }
 
-void			ft_print_wrong_command(const char *cmd)
+void			print_wrong_command(const char *cmd)
 {
 	ft_dprintf(2, "ft_ssl: Error: '%s' is an invalid command.\n\n", cmd);
 	ft_dprintf(2, "Standard commands:\n");

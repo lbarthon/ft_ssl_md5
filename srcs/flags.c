@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 12:22:15 by lbarthon          #+#    #+#             */
-/*   Updated: 2020/03/05 16:01:22 by lbarthon         ###   ########.fr       */
+/*   Updated: 2020/03/05 17:43:18 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 **  -r => 2
 */
 
-char	ft_get_flag_id(char flag)
+char	get_flag_id(char flag)
 {
 	if (flag == 'p')
 		return (0);
@@ -32,17 +32,17 @@ char	ft_get_flag_id(char flag)
 	return (-1);
 }
 
-char	ft_has_flag(char flags, char flag)
+char	has_flag(char flags, char flag)
 {
 	int		flag_id;
 
-	flag_id = ft_get_flag_id(flag);
+	flag_id = get_flag_id(flag);
 	if (flag_id == -1)
 		return (0);
 	return ((flags & 1 << flag_id) != 0);
 }
 
-int		ft_get_flags(char *str, char *curr)
+int		get_flags(char *str, char *curr)
 {
 	int		f;
 	int		i;
@@ -50,10 +50,10 @@ int		ft_get_flags(char *str, char *curr)
 
 	len = ft_strlen(str);
 	i = 0;
-	(*curr) &= ~(1 << ft_get_flag_id('p'));
+	(*curr) &= ~(1 << get_flag_id('p'));
 	while (++i < len)
 	{
-		if ((f = ft_get_flag_id(str[i])) != -1)
+		if ((f = get_flag_id(str[i])) != -1)
 			(*curr) |= 1 << f;
 		else
 			return (i);

@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 11:19:03 by lbarthon          #+#    #+#             */
-/*   Updated: 2020/03/05 17:07:51 by lbarthon         ###   ########.fr       */
+/*   Updated: 2020/03/05 17:39:55 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static unsigned int		*g_r = (unsigned int[]) {
 	4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23,
 	6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21};
 
-static unsigned int	ft_get_f(unsigned int *t, int i)
+static unsigned int	get_f(unsigned int *t, int i)
 {
 	if (i < 16)
 		return (t[1] & t[2]) | ((~t[1]) & t[3]);
@@ -48,7 +48,7 @@ static unsigned int	ft_get_f(unsigned int *t, int i)
 	return (t[2] ^ (t[1] | (~t[3])));
 }
 
-static unsigned int	ft_get_g(int i)
+static unsigned int	get_g(int i)
 {
 	if (i < 16)
 		return (i);
@@ -59,7 +59,7 @@ static unsigned int	ft_get_g(int i)
 	return ((7 * i) % 16);
 }
 
-void				ft_md5_words(unsigned int *h, unsigned int *w)
+void				md5_words(unsigned int *h, unsigned int *w)
 {
 	unsigned int	t[4];
 	unsigned int	f;
@@ -73,8 +73,8 @@ void				ft_md5_words(unsigned int *h, unsigned int *w)
 	i = -1;
 	while (++i < 64)
 	{
-		f = ft_get_f(t, i);
-		g = ft_get_g(i);
+		f = get_f(t, i);
+		g = get_g(i);
 		f += t[0] + g_k[i] + w[g];
 		t[0] = t[3];
 		t[3] = t[2];
@@ -87,7 +87,7 @@ void				ft_md5_words(unsigned int *h, unsigned int *w)
 	h[3] += t[3];
 }
 
-void				ft_md5_ret(unsigned int *h, char ret[33])
+void				md5_ret(unsigned int *h, char ret[33])
 {
 	unsigned char	*p;
 	int				i;
@@ -110,7 +110,7 @@ void				ft_md5_ret(unsigned int *h, char ret[33])
 	ret[32] = '\0';
 }
 
-int					ft_md5_check_residual(t_md5_stream *stream, char buff[2049]
+int					md5_check_residual(t_md5_stream *stream, char buff[2049]
 		, int r)
 {
 	char	l;
@@ -122,7 +122,7 @@ int					ft_md5_check_residual(t_md5_stream *stream, char buff[2049]
 	stream->buff_len += l;
 	if (stream->buff_len == 64)
 	{
-		ft_md5_words(stream->hash, (unsigned int*)stream->buffer);
+		md5_words(stream->hash, (unsigned int*)stream->buffer);
 		stream->total_len += 64;
 		stream->buff_len = 0;
 	}

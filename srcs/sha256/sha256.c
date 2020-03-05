@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 10:42:07 by lbarthon          #+#    #+#             */
-/*   Updated: 2020/03/05 16:06:41 by lbarthon         ###   ########.fr       */
+/*   Updated: 2020/03/05 17:40:45 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,33 +20,32 @@
 
 void			sha256_init(t_hash *hash)
 {
-	ft_bzero(hash->name, 10);
 	ft_strcpy(hash->name, "sha256");
-	ft_strcpy(hash->display_name, "SHA256");
-	hash->exec_str = &ft_sha256_str;
-	hash->exec_stream = &ft_sha256_stream;
+	ft_strcpy(hash->display_name, "SHA 256");
+	hash->exec_str = &sha256_str;
+	hash->exec_stream = &sha256_stream;
 	hash->used = 0;
 	hash->stdin_used = 0;
 	hash->error = 0;
 }
 
-void			ft_sha256_stream(int fd, char ret[65], char need_print)
+void			sha256_stream(int fd, char ret[65], char need_print)
 {
 	t_sha256_stream	stream;
 	char			buff[2049];
 	int				r;
 	int				offset;
 
-	ft_sha256_stream_init(&stream);
+	sha256_stream_init(&stream);
 	while ((r = read(fd, buff, 2048)) > 0)
 	{
 		buff[r] = '\0';
 		if (need_print)
 			ft_putstr(buff);
-		offset = ft_sha256_check_residual(&stream, buff, r);
+		offset = sha256_check_residual(&stream, buff, r);
 		while (r - offset >= 64)
 		{
-			ft_sha256_words(stream.hash, (unsigned int *)(buff + offset));
+			sha256_words(stream.hash, (unsigned int *)(buff + offset));
 			stream.total_len += 64;
 			offset += 64;
 		}
@@ -54,20 +53,20 @@ void			ft_sha256_stream(int fd, char ret[65], char need_print)
 			ft_memcpy(stream.buffer, buff + offset
 					, (stream.buff_len = r - offset));
 	}
-	ft_sha256_stream_end(&stream);
-	ft_sha256_ret(stream.hash, ret);
+	sha256_stream_end(&stream);
+	sha256_ret(stream.hash, ret);
 }
 
-void			ft_sha256_str(unsigned char *str, int len, char ret[65])
+void			sha256_str(unsigned char *str, int len, char ret[65])
 {
 	t_sha256_stream	stream;
 	int				offset;
 
-	ft_sha256_stream_init(&stream);
+	sha256_stream_init(&stream);
 	offset = 0;
 	while (len - offset >= 64)
 	{
-		ft_sha256_words(stream.hash, (unsigned int *)(str + offset));
+		sha256_words(stream.hash, (unsigned int *)(str + offset));
 		stream.total_len += 64;
 		offset += 64;
 	}
@@ -76,11 +75,11 @@ void			ft_sha256_str(unsigned char *str, int len, char ret[65])
 		ft_memcpy(stream.buffer, str + offset, len - offset);
 		stream.buff_len = len - offset;
 	}
-	ft_sha256_stream_end(&stream);
-	ft_sha256_ret(stream.hash, ret);
+	sha256_stream_end(&stream);
+	sha256_ret(stream.hash, ret);
 }
 
-void			ft_sha256_stream_init(t_sha256_stream *stream)
+void			sha256_stream_init(t_sha256_stream *stream)
 {
 	stream->hash[0] = 0x6a09e667;
 	stream->hash[1] = 0xbb67ae85;
@@ -95,7 +94,7 @@ void			ft_sha256_stream_init(t_sha256_stream *stream)
 	ft_bzero(stream->buffer, 64);
 }
 
-void			ft_sha256_stream_end(t_sha256_stream *stream)
+void			sha256_stream_end(t_sha256_stream *stream)
 {
 	size_t	bits_len;
 
@@ -104,11 +103,11 @@ void			ft_sha256_stream_end(t_sha256_stream *stream)
 	bits_len = (stream->total_len + stream->buff_len) * 8;
 	if (stream->buff_len >= 56)
 	{
-		ft_sha256_words(stream->hash, (unsigned int*)stream->buffer);
+		sha256_words(stream->hash, (unsigned int*)stream->buffer);
 		stream->buff_len = 0;
 		ft_bzero(stream->buffer, 64);
 	}
 	ft_memrev(&bits_len, 8);
 	ft_memcpy(stream->buffer + 56, &bits_len, 8);
-	ft_sha256_words(stream->hash, (unsigned int*)stream->buffer);
+	sha256_words(stream->hash, (unsigned int*)stream->buffer);
 }

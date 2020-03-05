@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 12:58:49 by lbarthon          #+#    #+#             */
-/*   Updated: 2020/03/05 17:22:57 by lbarthon         ###   ########.fr       */
+/*   Updated: 2020/03/05 17:41:18 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static unsigned int		*g_k = (unsigned int[]) {
 	0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
 };
 
-static void			ft_sha256_prep(unsigned int w[64], unsigned int *buff
+static void			sha256_prep(unsigned int w[64], unsigned int *buff
 		, unsigned int *h, unsigned int t[8])
 {
 	int	i;
@@ -57,7 +57,7 @@ static void			ft_sha256_prep(unsigned int w[64], unsigned int *buff
 		t[i] = h[i];
 }
 
-void				ft_sha256_words(unsigned int *h, unsigned int *buff)
+void				sha256_words(unsigned int *h, unsigned int *buff)
 {
 	unsigned int	w[64];
 	unsigned int	t[8];
@@ -65,7 +65,7 @@ void				ft_sha256_words(unsigned int *h, unsigned int *buff)
 	unsigned int	y;
 	int				i;
 
-	ft_sha256_prep(w, buff, h, t);
+	sha256_prep(w, buff, h, t);
 	i = -1;
 	while (++i < 64)
 	{
@@ -86,7 +86,7 @@ void				ft_sha256_words(unsigned int *h, unsigned int *buff)
 		h[i] += t[i];
 }
 
-void				ft_sha256_ret(unsigned int *h, char ret[65])
+void				sha256_ret(unsigned int *h, char ret[65])
 {
 	unsigned char	*p;
 	int				i;
@@ -110,7 +110,7 @@ void				ft_sha256_ret(unsigned int *h, char ret[65])
 	ret[i] = '\0';
 }
 
-int					ft_sha256_check_residual(t_sha256_stream *stream
+int					sha256_check_residual(t_sha256_stream *stream
 		, char buff[2049], int r)
 {
 	char	l;
@@ -122,7 +122,7 @@ int					ft_sha256_check_residual(t_sha256_stream *stream
 	stream->buff_len += l;
 	if (stream->buff_len == 64)
 	{
-		ft_sha256_words(stream->hash, (unsigned int *)stream->buffer);
+		sha256_words(stream->hash, (unsigned int *)stream->buffer);
 		stream->total_len += 64;
 		stream->buff_len = 0;
 	}

@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 12:58:49 by lbarthon          #+#    #+#             */
-/*   Updated: 2019/10/17 17:47:16 by lbarthon         ###   ########.fr       */
+/*   Updated: 2020/03/05 17:22:57 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static int			*g_k = (int[]) {
+static unsigned int		*g_k = (unsigned int[]) {
 	0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
 	0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
 	0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
@@ -32,7 +32,8 @@ static int			*g_k = (int[]) {
 	0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5,
 	0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
 	0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208,
-	0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2};
+	0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+};
 
 static void			ft_sha256_prep(unsigned int w[64], unsigned int *buff
 		, unsigned int *h, unsigned int t[8])
@@ -47,8 +48,8 @@ static void			ft_sha256_prep(unsigned int w[64], unsigned int *buff
 	}
 	while (i < 64)
 	{
-		w[i] = SHA2_HASH_SSIG1(w[i - 2]) + w[i - 7]
-			+ SHA2_HASH_SSIG0(w[i - 15]) + w[i - 16];
+		w[i] = sha2_hash_ssig1(w[i - 2]) + w[i - 7]
+			+ sha2_hash_ssig0(w[i - 15]) + w[i - 16];
 		i++;
 	}
 	i = -1;
@@ -68,9 +69,9 @@ void				ft_sha256_words(unsigned int *h, unsigned int *buff)
 	i = -1;
 	while (++i < 64)
 	{
-		x = t[7] + SHA2_HASH_BSIG1(t[4]) + SHA2_HASH_CH(t[4], t[5], t[6])
+		x = t[7] + sha2_hash_bsig1(t[4]) + sha2_hash_ch(t[4], t[5], t[6])
 			+ g_k[i] + w[i];
-		y = SHA2_HASH_BSIG0(t[0]) + SHA2_HASH_MAJ(t[0], t[1], t[2]);
+		y = sha2_hash_bsig0(t[0]) + sha2_hash_maj(t[0], t[1], t[2]);
 		t[7] = t[6];
 		t[6] = t[5];
 		t[5] = t[4];

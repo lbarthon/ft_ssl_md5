@@ -6,7 +6,7 @@
 #    By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/02 16:45:56 by lbarthon          #+#    #+#              #
-#    Updated: 2020/03/05 14:21:56 by lbarthon         ###   ########.fr        #
+#    Updated: 2020/03/05 17:23:21 by lbarthon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,9 @@ SRCS=./srcs/errors/usage.c \
 	 ./srcs/md5/md5_utils.c \
 	 ./srcs/sha256/sha256.c \
 	 ./srcs/sha256/sha256_utils.c \
+	 ./srcs/utils/rotate.c \
+	 ./srcs/utils/sha2_sig.c \
+	 ./srcs/utils/sha2.c \
 	 ./srcs/main.c
 
 OBJS=$(SRCS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 12:14:34 by lbarthon          #+#    #+#             */
-/*   Updated: 2020/03/05 16:40:31 by lbarthon         ###   ########.fr       */
+/*   Updated: 2020/03/05 17:09:32 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 # define FT_SSL_H
 
 # include <string.h>
-
-# define ROTATELEFT(n, s) (((n) << s) | ((n) >> (sizeof(n) * 8 - s)))
-# define ROTATERIGHT(n, s) (((n) >> s) | ((n) << (sizeof(n) * 8 - s)))
 
 typedef struct	s_md5_stream {
 	unsigned char	buffer[64];
@@ -58,6 +55,9 @@ short			ft_get_command_id(char *cmd);
 int				ft_get_flags(char *str, char *curr);
 char			ft_get_flag_id(char flag);
 char			ft_has_flag(char flags, char flag);
+
+unsigned int	rotateleft(unsigned int n, unsigned int s);
+unsigned int	rotateright(unsigned int n, unsigned int s);
 
 void			hash_start(t_hash *hash, char **av);
 void			flag_err(t_hash *hash, char c);

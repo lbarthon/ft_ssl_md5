@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 11:43:13 by lbarthon          #+#    #+#             */
-/*   Updated: 2020/03/05 16:05:20 by lbarthon         ###   ########.fr       */
+/*   Updated: 2020/03/05 17:26:41 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ void	hash_stream(t_hash *hash, char *str, char flags)
 	char	ret[65];
 	int		fd;
 
-	if (!hash->used)
-		hash_stdin(hash, flags, 0);
 	fd = open(str, O_RDONLY);
 	if (fd == -1 || read(fd, NULL, 0) == -1)
 	{

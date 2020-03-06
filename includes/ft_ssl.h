@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 12:14:34 by lbarthon          #+#    #+#             */
-/*   Updated: 2020/03/06 10:48:38 by lbarthon         ###   ########.fr       */
+/*   Updated: 2020/03/06 11:50:54 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void			md5_words(unsigned int *h, unsigned int *w);
 /*
 ** All sha1 functions
 */
-void			md5_init(t_hash *hash);
+void			sha1_init(t_hash *hash);
 void			sha1_str(unsigned char *str, int len, char ret[33]);
 void			sha1_stream(int fd, char ret[33], char need_print);
 void			sha1_ret(unsigned int *i, char ret[33]);

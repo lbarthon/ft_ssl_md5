@@ -6,18 +6,22 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:31:46 by lbarthon          #+#    #+#             */
-/*   Updated: 2020/03/05 17:38:14 by lbarthon         ###   ########.fr       */
+/*   Updated: 2020/03/06 11:52:00 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "ft_ssl.h"
+#include "errors.h"
+#include <stdlib.h>
+#include <unistd.h>
 
 void			sha1_init(t_hash *hash)
 {
 	ft_strcpy(hash->name, "sha1");
 	ft_strcpy(hash->display_name, "SHA 1");
-	hash->exec_str = &sha256_str;
-	hash->exec_stream = &sha256_stream;
+	hash->exec_str = &sha1_str;
+	hash->exec_stream = &sha1_stream;
 	hash->used = 0;
 	hash->stdin_used = 0;
 	hash->error = 0;
@@ -33,7 +37,7 @@ void			sha1_stream(int fd, char ret[33], char need_print)
 	sha1_stream_init(&stream);
 	while ((r = read(fd, buff, 2048)) > 0)
 	{
-		buff[r] = '\0';
+		buff[r] = 0;
 		if (need_print)
 			ft_putstr(buff);
 		offset = sha1_check_residual(&stream, buff, r);

@@ -6,7 +6,7 @@
 #    By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/02 16:45:56 by lbarthon          #+#    #+#              #
-#    Updated: 2020/03/06 10:47:50 by lbarthon         ###   ########.fr        #
+#    Updated: 2020/03/06 11:09:14 by lbarthon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ LDFLAGS=-Llibft -lft
 
 NAME=ft_ssl
 
-SRCDIR=./srcs/
+SRCDIR=./srcs
 SRCS=errors/usage.c \
 	 errors/commands.c \
 	 flags.c \
@@ -27,6 +27,8 @@ SRCS=errors/usage.c \
 	 md5/md5_utils.c \
 	 sha256/sha256.c \
 	 sha256/sha256_utils.c \
+	 sha1/sha1.c \
+	 sha1/sha1_utils.c \
 	 utils/rotate.c \
 	 utils/sha2_sig.c \
 	 utils/sha2.c \

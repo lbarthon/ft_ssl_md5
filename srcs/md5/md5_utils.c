@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 11:19:03 by lbarthon          #+#    #+#             */
-/*   Updated: 2020/03/05 17:39:55 by lbarthon         ###   ########.fr       */
+/*   Updated: 2020/03/06 11:43:21 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void				md5_ret(unsigned int *h, char ret[33])
 	i = -1;
 	while (++i < 32)
 		ret[i] += ret[i] < 10 ? '0' : 'a' - 10;
-	ret[32] = '\0';
+	ret[i] = 0;
 }
 
 int					md5_check_residual(t_md5_stream *stream, char buff[2049]

@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 11:43:13 by lbarthon          #+#    #+#             */
-/*   Updated: 2020/03/05 17:45:09 by lbarthon         ###   ########.fr       */
+/*   Updated: 2020/03/06 13:27:01 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	hash_stdin(t_hash *hash, char flags, char force)
 {
 	char	ret[65];
 
-	if (isatty(0) && !hash->stdin_used)
+	if ((!isatty(0) || force) && !hash->stdin_used)
 		hash->exec_stream(0, ret, has_flag(flags, 'p'));
 	else if (!force)
 		return ;

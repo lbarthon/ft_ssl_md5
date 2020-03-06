@@ -6,7 +6,7 @@
 /*   By: lbarthon <lbarthon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 12:58:49 by lbarthon          #+#    #+#             */
-/*   Updated: 2020/03/05 17:41:18 by lbarthon         ###   ########.fr       */
+/*   Updated: 2020/03/06 13:42:45 by lbarthon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void				sha256_ret(unsigned int *h, char ret[65])
 	i = -1;
 	while (++i < 64)
 		ret[i] += ret[i] < 10 ? '0' : 'a' - 10;
-	ret[i] = '\0';
+	ret[i] = 0;
 }
 
 int					sha256_check_residual(t_sha256_stream *stream
